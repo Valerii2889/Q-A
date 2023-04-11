@@ -1,159 +1,195 @@
-// https://bool.dev/blog/detail/obyasnenie-event-loop-v-javascript-s-pomoshchyu-vizualizatsii
-// https://www.jscamp.app/ru/docs/javascript25/
-// https://uk.wikipedia.org/wiki/%D0%A7%D0%B0%D1%81_Unix
+// https://javascriptpatterns.vercel.app/patterns/design-patterns/factory-pattern
 
-// console.log('start');
-// setTimeout(()=>{console.log('setTimeout');},0)
-// console.log('finish');
-// console.time('test async')
+// console.log(typeof NaN); //number
+// Number.isNaN()
+// console.log(typeof null); //object
 
-// console.log("start");
+// console.log(null > 0); //false
+// console.log(Number(null));
+// console.log(null < 0); //false
+// console.log(Number(null));
+// console.log(null == 0); //false
+// console.log(null >= 0); //true
+// console.log(Number(null));
+// console.log(Math.min() > Math.max()); //true
+// console.log((!+[] + [] + ![]).length); //9
+// Самостійне опрацювання
+// Напишіть клас Toggle який приймає об'єкт налаштувань {isOpen: boolean} і оголошує одну властивість on - стан вкл/викл (true/false). За замовчуванням значення властивості on повинно бути false.
 
-// setTimeout(() => {
-//   console.log("setTimeout");
-// }, 0);
-
-// for (let i = 0; i < 100000; i += 1) {
-//     console.log('value', i);
-// }
-
-// console.timeEnd('test async')
-
-// const date = new Date();
-// console.log(date);
-
-// const namesOfMonth = ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'];
-
-// const arrDay = ['Неділя', 'Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П`ятниця', 'Субота'];
-// console.log(namesOfMonth[date.getMonth()]);
-
-// console.log(arrDay[date.getDay()]);
-// console.log('new Date()',date);
-// const currentDate = Date.now()
-
-// console.log('Date.now()',currentDate);
-
-// const box = document.querySelector(".js-box");
-// const titleTimer = document.querySelector(".js-timer");
-// let counter = 11;
-// setTimeout(() => {
-//   box.style.display = "block";
-
-//   const id = setInterval(() => {
-//     counter -= 1;
-//     titleTimer.textContent = counter;
-
-//     if (!counter) {
-//       //!counter counter === 0
-//       clearInterval(id);
-//       titleTimer.textContent = "X";
-//       titleTimer.addEventListener("click", onClick);
-//       // box.style.display = "none";
-//     }
-//   }, 1000);
-
-// }, 5000);
-
-// function onClick() {
-//   box.style.display = "none";
-// }
-
-const day = document.querySelector(".date-day");
-const date = document.querySelector(".date");
-const month = document.querySelector(".date-month");
-const year = document.querySelector(".date-year");
-const digitalClock = document.querySelector(".digital-clock");
-const arrowSecond = document.querySelector(".clock-seconds__arrow");
-const arrowMinutes = document.querySelector(".clock-minutes__arrow");
-const arrowHours = document.querySelector(".clock-hours__arrow");
-
-const namesOfMonth = [
-  "Січень",
-  "Лютий",
-  "Березень",
-  "Квітень",
-  "Травень",
-  "Червень",
-  "Липень",
-  "Серпень",
-  "Вересень",
-  "Жовтень",
-  "Листопад",
-  "Грудень",
-];
-
-const arrDay = [
-  "Неділя",
-  "Понеділок",
-  "Вівторок",
-  "Середа",
-  "Четвер",
-  "П`ятниця",
-  "Субота",
-];
-
-setInterval(() => {
-  const currentTime = new Date();
-  const currentDay = arrDay[currentTime.getDay()];
-  const currentDate = currentTime.getDate();
-  const currentMonth = namesOfMonth[currentTime.getMonth()];
-  const currentYear = currentTime.getFullYear();
-  const currentHour = currentTime.getHours();
-  const currentMinutes = currentTime.getMinutes();
-  const currentSeconds = currentTime.getSeconds();
-
-  const changeSeconds = (360 / 60) * currentSeconds;
-  const changeMinutes = (360 / 60) * currentMinutes;
-  const changeHours =(360 / 12) * currentHour + (360 / 12 / 60) * currentMinutes;
-
-  console.log(changeSeconds);
-  const formatTime = `${currentHour
-    .toString()
-    .padStart(2, "0")} : ${currentMinutes
-    .toString()
-    .padStart(2, "0")} : ${currentSeconds.toString().padStart(2, "0")}`;
-
-  day.textContent = currentDay;
-  date.textContent = currentDate;
-  month.textContent = currentMonth;
-  year.textContent = currentYear;
-
-  digitalClock.textContent = `Поточний час: ${formatTime}`;
-
-  arrowSecond.style.transform = `rotate(${changeSeconds}deg)`;
-  arrowMinutes.style.transform = `rotate(${changeMinutes}deg)`;
-  arrowHours.style.transform = `rotate(${changeHours}deg)`;
-}, 1000);
-
-// // console.log(currentYear);
-
-// const currentTime = new Date();
-
-
-// const targetDate = new Date('4/11/2023')
-
-// setInterval(()=>{
-//     const currentDate = new Date();
-
-//     console.log(convertMs(targetDate - currentDate));
-// },1000)
-
-
-// function convertMs(ms) {
-//     // Number of milliseconds per unit of time
-//     const second = 1000;
-//     const minute = second * 60;
-//     const hour = minute * 60;
-//     const day = hour * 24;
-  
-//     // Remaining days
-//     const days = Math.floor(ms / day);
-//     // Remaining hours
-//     const hours = Math.floor((ms % day) / hour);
-//     // Remaining minutes
-//     const minutes = Math.floor(((ms % day) % hour) / minute);
-//     // Remaining seconds
-//     const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-  
-//     return { days, hours, minutes, seconds };
+// class Toggle {
+//   constructor({ isOpen = false } = {}) {
+//     this.on = isOpen;
 //   }
+//   toggle(){
+//     this.on = !this.on;
+//   }
+// }
+
+// const firstToggle = new Toggle({ isOpen: true });
+// console.group("firstToggle");
+// console.log(firstToggle.on);
+// firstToggle.toggle();
+// console.log(firstToggle.on);
+// firstToggle.toggle();
+// console.log(firstToggle.on);
+// firstToggle.toggle();
+// console.log(firstToggle.on);
+// console.groupEnd("firstToggle");
+
+// const secondToggle = new Toggle();
+// console.group("secondToggle");
+// console.log(secondToggle.on);
+// secondToggle.toggle();
+// console.log(secondToggle.on);
+// console.groupEnd("secondToggle");
+
+// const arr = [1, 1, 1, [1, 1, [1, 1]]];
+
+// function sum(arr) {
+//   let total = 0;
+//   for (const item of arr) {
+//     if (Array.isArray(item)) {
+//       total += sum(item);
+//     } else {
+//       total += item;
+//     }
+//   }
+//   return total
+// }
+// console.log(sum(arr));
+
+// const arr = [
+//   1,
+//   1,
+//   1,
+//   [
+//     1,
+//     1,
+//     [
+//       1,
+//       1,
+//       [
+//         1,
+//         1,
+//         1,
+//         [1, 1, [1, 1, [1, 1, 1, [1, 1, [1, 1, [1, 1, 1, [1, 1, [1, 1]]]]]]]],
+//       ],
+//     ],
+//   ],
+// ];
+
+// function sumArray(arr) {
+//   let sum = 0;
+//   arr.forEach((elem) => {
+//     if (typeof elem === "number") {
+//       sum += elem;
+//     } else if (Array.isArray(elem)) {
+//       sum += sumArray(elem);
+//     }
+//   });
+//   return sum;
+// }
+
+// console.log(sumArray(arr));
+
+// function foo(item) {
+//   const test = 10;
+//   const userName = "Artem";
+//   const value = item > test;
+// const fn = function (age) {
+//     const str = `Hello my name ${userName} I\`m ${age} yers old`;
+//     console.log(test);
+//     console.log(value);
+//     return str;
+//   }
+//   const fn2 = function (age) {
+//     const str = `Привіт мене звати ${userName} мені ${age} років`;
+//     console.log(test);
+//     console.log(value);
+//     return str;
+//   };
+//   return value
+//     ? fn
+//     : fn2
+// }
+
+// const result = foo(11);
+// const example = result(28)
+// console.log(example);
+// const arr = [1,2,3,4];
+// arr.forEach(item => {
+//     if(item > 0){
+//     //    continue;
+//     }
+//     console.log('After if');
+// })
+
+// function padEnd(str) {
+//     console.log(this);
+//     console.log(str);
+//     // return this.value + str
+//     return this.value.padEnd(this.value.length + str.length, str)
+//   }
+
+//   console.log(padEnd.call({value: '^.'}, '^'));
+
+// class StringBuilder {
+//   constructor(initialValue) {
+//     this.value = initialValue;
+//     console.log(initialValue);
+//   }
+//   getValue() {
+//     return this.value;
+//   }
+//   padEnd(str) {
+//     // this.value += str;
+//     this.value = this.value.padEnd(this.value.length + str.length, str);
+//   }
+//   padStart(str) {
+//     // console.log(typeof this.value, typeof str);
+//     // this.value = str + this.value;
+//     this.value = this.value.padStart(this.value.length + str.length, str);
+//   }
+//   padBoth(str) {
+//     this.value = str + this.value + str;
+//   }
+// }
+
+// // Change code above this line
+// const builder = new StringBuilder(".");
+// console.log(builder.getValue()); // "."
+// builder.padStart("^");
+// console.log(builder.getValue()); // "^."
+// builder.padEnd("^");
+// console.log(builder.getValue()); // "^.^"
+// builder.padBoth("=");
+// console.log(builder.getValue()); // "=^.^="
+// function foo(a,b) {
+//     console.log(this); // window
+//     return a * b;
+// }
+
+// const result = foo.bind(null, 2);
+// console.log(result(2));
+// Можемо розібрати ? Яким буде результат виконання (2,4,NaN, помилка ?)
+
+// const arr = [14, 45, 13, 55, 213, 11];
+
+// for(const num of arr){
+//     // if(num < 50){
+//     //     // continue;
+//     //     // break;
+//     //     console.log(num);
+//     // }
+//     console.log(num);
+// }
+
+// const foo = function(){
+//     console.log('expression');
+// }
+// foo()
+// boo()
+// function boo(){
+//     console.log('declaration');
+// }
+console.log(Math.min() > Math.max())
